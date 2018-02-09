@@ -71,14 +71,10 @@ int main(int argc, char** argv) {
         
         glColor3ub(150,50,200);
         
-        glBegin(GL_POINTS);
-			glVertex2f( -1 +2. * x / WINDOW_WIDTH, -(-1 + 2. * y / WINDOW_HEIGHT));
-		glEnd();
-        
         /* Echange du front et du back buffer : mise à jour de la fenêtre */
-        SDL_GL_SwapBuffers();
+        /* SDL_GL_SwapBuffers(); */
         
-        
+        glClear(GL_COLOR_BUFFER_BIT);
         
         /* Boucle traitant les evenements */
         SDL_Event e;
@@ -93,18 +89,24 @@ int main(int argc, char** argv) {
             /* Quelques exemples de traitement d'evenements : */
             switch(e.type) {
 
-                /* Clic souris */
-                /* case SDL_MOUSEBUTTONUP:
-                    printf("clic en (%d, %d)\n", e.button.x, e.button.y);
-                    x = e.button.x % 255 / 255.0;
-                    y = e.button.y % 255 / 255.0;
-                    break; */
-                   
-                   case SDL_MOUSEBUTTONUP:
-                    printf("clic en (%d, %d)\n", e.button.x, e.button.y);
-                    x = e.button.x % 255 / 255.0;
-                    y = e.button.y % 255 / 255.0;
-                    break;
+                /* Clic souris */ 
+                /* Affichage des coordonnées de l'endroit où l'on 
+                 * clique  
+				case SDL_MOUSEBUTTONUP:
+                printf("clic en (%d, %d)\n", e.button.x, e.button.y);
+                x = e.button.x % 255 / 255.0;
+                y = e.button.y % 255 / 255.0;
+                break; */
+                
+                /* Création d'un point à l'endroit du clique
+                 * Exercice 5 Question 3 */
+                case SDL_MOUSEBUTTONUP:
+                glBegin(GL_POINTS);
+                glColor3ub(255, 0, 0);
+                glVertex2f(-1 + 2. * e.button.x / WINDOW_WIDTH, - (-1 + 2. * e.button.y / WINDOW_HEIGHT));
+                glEnd();
+                SDL_GL_SwapBuffers();
+                break;     
                     
                 /* Mouvement souris */
                 case SDL_MOUSEMOTION:
@@ -126,11 +128,14 @@ int main(int argc, char** argv) {
 					WINDOW_WIDTH = e.resize.w;
 					WINDOW_HEIGHT = e.resize.h;
                     Resize();
-                    SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_RESIZABLE)
+                    SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 
+                    BIT_PER_PIXEL, SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_RESIZABLE);
                     break;
 
                 default:
                     break;
+                    
+                /* Exercice 6 */
             }
         }
 
