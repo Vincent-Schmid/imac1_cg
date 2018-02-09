@@ -91,19 +91,18 @@ int main(int argc, char** argv) {
 
                 /* Clic souris */ 
                 /* Affichage des coordonnées de l'endroit où l'on 
-                 * clique  
+                 * clique  */
+                  /* Création d'un point à l'endroit du clique
+                 * Exercice 5 Question 3 */
 				case SDL_MOUSEBUTTONUP:
                 printf("clic en (%d, %d)\n", e.button.x, e.button.y);
                 x = e.button.x % 255 / 255.0;
                 y = e.button.y % 255 / 255.0;
-                break; */
-                
-                /* Création d'un point à l'endroit du clique
-                 * Exercice 5 Question 3 */
-                case SDL_MOUSEBUTTONUP:
+                float i = e.button.x;
+                float j = e.button.y;
                 glBegin(GL_POINTS);
                 glColor3ub(255, 0, 0);
-                glVertex2f(-1 + 2. * e.button.x / WINDOW_WIDTH, - (-1 + 2. * e.button.y / WINDOW_HEIGHT));
+                glVertex2f(-1 + 2. * i / WINDOW_WIDTH, - (-1 + 2. * j / WINDOW_HEIGHT));
                 glEnd();
                 SDL_GL_SwapBuffers();
                 break;     
